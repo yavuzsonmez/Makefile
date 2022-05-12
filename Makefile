@@ -19,24 +19,24 @@ FLAGS			=		-Wall -Werror -Wextra -Wshadow -Wno-shadow -std=c++98
 .c.o			:
 						@c++ $(CFLAGS) -c $< -o $(<:.c=.o)
 
-silence:
-						@:
-
-$(NAME)			:		$(OBJS) | silence $(HDRS) | silence
+$(NAME)			:		$(OBJS) $(HDRS) | silence
 						@c++ $(FLAGS) $(OBJS) -o $(NAME)
 						@echo "$(G)$(NAME) has been created$(Reset)"
 
-dev				:		$(OBJS) | silence $(HDRS) | silence
+dev				:		$(OBJS) $(HDRS) | silence
 						@c++ $(OBJS) -o $(NAME)
 						@echo "$(R)Compiling without flags WARNING !$(Reset)"
 						@echo "$(G)$(NAME) has been created$(Reset)"
 
-debug				:	$(OBJS) | silence $(HDRS) | silence
+debug				:	$(OBJS) $(HDRS) | silence
 						@c++ $(OBJS) $(DEBUG) -o $(NAME)
 						@echo "$(P)DEBUG MODE : address sanitizer$(Reset)"
 						@echo "$(G)$(NAME) has been created$(Reset)"
 						$(NAME) > debug.log
 						@echo "$(B)Debug logged in 'debug.log'$(Reset)"
+
+silence:
+						@:
 
 valgrind			:	$(NAME)
 						@echo "$(B)Checking for memory leaks..$(Reset)"
