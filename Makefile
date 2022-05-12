@@ -19,16 +19,19 @@ FLAGS			=		-Wall -Werror -Wextra -Wshadow -Wno-shadow -std=c++98
 .c.o			:
 						@c++ $(CFLAGS) -c $< -o $(<:.c=.o)
 
-$(NAME)			:		$(OBJS) $(HDRS)
+silence:
+						@:
+
+$(NAME)			:		$(OBJS) | silence $(HDRS) | silence
 						@c++ $(FLAGS) $(OBJS) -o $(NAME)
 						@echo "$(G)$(NAME) has been created$(Reset)"
 
-dev				:		$(OBJS) $(HDRS)
+dev				:		$(OBJS) | silence $(HDRS) | silence
 						@c++ $(OBJS) -o $(NAME)
 						@echo "$(R)Compiling without flags WARNING !$(Reset)"
 						@echo "$(G)$(NAME) has been created$(Reset)"
 
-debug				:	$(OBJS) $(HDRS)
+debug				:	$(OBJS) | silence $(HDRS) | silence
 						@c++ $(OBJS) $(DEBUG) -o $(NAME)
 						@echo "$(P)DEBUG MODE : address sanitizer$(Reset)"
 						@echo "$(G)$(NAME) has been created$(Reset)"
